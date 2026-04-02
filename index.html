@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud SME Certification Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root {
+  --bg: #05080f;
+  --bg2: #080d18;
+  --surface: #0d1526;
+  --surface2: #111e35;
+  --border: rgba(100,160,255,0.1);
+  --border2: rgba(100,160,255,0.2);
+  --blue: #4a9eff;
+  --blue-dim: rgba(74,158,255,0.1);
+  --blue-dim2: rgba(74,158,255,0.18);
+  --teal: #00d4a0;
+  --teal-dim: rgba(0,212,160,0.1);
+  --amber: #ffb547;
+  --amber-dim: rgba(255,181,71,0.1);
+  --red: #ff5c7a;
+  --red-dim: rgba(255,92,122,0.1);
+  --purple: #a78bfa;
+  --purple-dim: rgba(167,139,250,0.1);
+  --text: #e8f0ff;
+  --text2: #6b82a8;
+  --text3: #2e4060;
+  --font: 'Syne', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Blueprint grid background */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(74,158,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,158,255,0.04) 1px, transparent 1px),
+    linear-gradient(rgba(74,158,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,158,255,0.015) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 20px 20px, 20px 20px;
+  pointer-events: none; z-index: 0;
+}
+
+/* Glow orbs */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 10%, rgba(74,158,255,0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 400px at 80% 80%, rgba(0,212,160,0.04) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+
+.app { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+
+/* Header */
+.header { margin-bottom: 3.5rem; }
+.header-eyebrow { font-family: var(--mono); font-size: 11px; color: var(--blue); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 10px; }
+.header-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--blue); }
+.header-title { font-size: clamp(32px, 5vw, 52px); font-weight: 800; line-height: 1.05; letter-spacing: -1px; margin-bottom: 1rem; }
+.header-title .line2 { color: var(--blue); }
+.header-desc { font-size: 15px; color: var(--text2); line-height: 1.7; max-width: 560px; }
+
+/* Stats bar */
+.stats-bar { display: flex; gap: 2px; margin-bottom: 3rem; flex-wrap: wrap; }
+.stat-block { background: var(--surface); border: 1px solid var(--border); padding: 1rem 1.25rem; flex: 1; min-width: 120px; }
+.stat-block:first-child { border-radius: 10px 0 0 10px; }
+.stat-block:last-child { border-radius: 0 10px 10px 0; }
+.stat-num { font-size: 26px; font-weight: 800; font-family: var(--mono); color: var(--text); }
+.stat-num.blue { color: var(--blue); }
+.stat-num.teal { color: var(--teal); }
+.stat-lbl { font-size: 11px; color: var(--text3); margin-top: 3px; font-family: var(--mono); letter-spacing: 0.06em; }
+
+/* Phase */
+.phase { margin-bottom: 3rem; }
+.phase-header { display: flex; align-items: center; gap: 14px; margin-bottom: 1.5rem; }
+.phase-line { flex: 1; height: 1px; background: var(--border); }
+.phase-badge { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; padding: 5px 14px; border-radius: 99px; border: 1px solid; white-space: nowrap; }
+.phase-badge.p1 { border-color: rgba(74,158,255,0.4); color: var(--blue); background: var(--blue-dim); }
+.phase-badge.p2 { border-color: rgba(0,212,160,0.4); color: var(--teal); background: var(--teal-dim); }
+.phase-badge.p3 { border-color: rgba(255,181,71,0.4); color: var(--amber); background: var(--amber-dim); }
+.phase-badge.p4 { border-color: rgba(167,139,250,0.4); color: var(--purple); background: var(--purple-dim); }
+.phase-badge.p5 { border-color: rgba(255,92,122,0.4); color: var(--red); background: var(--red-dim); }
+.phase-time { font-family: var(--mono); font-size: 11px; color: var(--text3); white-space: nowrap; }
+
+/* Cert cards grid */
+.certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+
+/* Cert card */
+.cert-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.cert-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  opacity: 0; transition: opacity 0.2s;
+}
+.cert-card.blue::before { background: var(--blue); }
+.cert-card.teal::before { background: var(--teal); }
+.cert-card.amber::before { background: var(--amber); }
+.cert-card.purple::before { background: var(--purple); }
+.cert-card.red::before { background: var(--red); }
+
+.cert-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.cert-card:hover::before { opacity: 1; }
+.cert-card.completed { border-color: rgba(0,212,160,0.3); }
+.cert-card.completed::before { background: var(--teal); opacity: 1; }
+.cert-card.active-card { border-color: var(--blue); }
+.cert-card.active-card::before { background: var(--blue); opacity: 1; }
+
+.cert-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 0.75rem; }
+.cert-badge { font-family: var(--mono); font-size: 10px; padding: 3px 9px; border-radius: 99px; border: 1px solid; letter-spacing: 0.06em; }
+.cert-badge.blue { border-color: rgba(74,158,255,0.35); color: var(--blue); background: var(--blue-dim); }
+.cert-badge.teal { border-color: rgba(0,212,160,0.35); color: var(--teal); background: var(--teal-dim); }
+.cert-badge.amber { border-color: rgba(255,181,71,0.35); color: var(--amber); background: var(--amber-dim); }
+.cert-badge.purple { border-color: rgba(167,139,250,0.35); color: var(--purple); background: var(--purple-dim); }
+.cert-badge.red { border-color: rgba(255,92,122,0.35); color: var(--red); background: var(--red-dim); }
+
+.cert-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--border2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; font-size: 11px; }
+.cert-card.completed .cert-check { background: var(--teal); border-color: var(--teal); color: #05080f; }
+
+.cert-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; line-height: 1.3; }
+.cert-code { font-family: var(--mono); font-size: 11px; color: var(--text3); margin-bottom: 0.75rem; }
+
+.cert-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 0.75rem; }
+.meta-pill { font-size: 11px; font-family: var(--mono); padding: 3px 8px; border-radius: 5px; background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+
+.cert-desc { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 0.85rem; }
+
+.cert-skills { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 0.85rem; }
+.skill-tag { font-size: 10px; padding: 2px 7px; border-radius: 4px; background: var(--bg2); color: var(--text3); border: 1px solid var(--border); font-family: var(--mono); }
+
+.cert-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+.cert-salary { font-size: 12px; color: var(--teal); font-weight: 600; font-family: var(--mono); }
+.cert-priority { font-size: 11px; color: var(--text3); font-family: var(--mono); }
+
+/* Expanded detail panel */
+.detail-panel {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 8px;
+  margin-bottom: 4px;
+  display: none;
+  animation: slideDown 0.2s ease;
+}
+.detail-panel.open { display: block; }
+@keyframes slideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.detail-section h4 { font-size: 11px; font-family: var(--mono); color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.6rem; }
+.detail-list { list-style: none; }
+.detail-list li { font-size: 13px; color: var(--text2); padding: 4px 0; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+.detail-list li::before { content: '→'; color: var(--blue); font-size: 11px; flex-shrink: 0; margin-top: 2px; font-family: var(--mono); }
+.detail-tip { font-size: 13px; color: var(--amber); background: var(--amber-dim); border: 1px solid rgba(255,181,71,0.2); border-radius: 8px; padding: 0.75rem 1rem; margin-top: 1rem; line-height: 1.6; }
+.detail-tip strong { font-weight: 600; }
+
+.btn-mark { margin-top: 1rem; font-family: var(--font); font-size: 13px; font-weight: 600; padding: 8px 20px; border-radius: 8px; cursor: pointer; border: 1px solid rgba(0,212,160,0.4); background: var(--teal-dim); color: var(--teal); transition: all 0.15s; }
+.btn-mark:hover { background: rgba(0,212,160,0.25); }
+.btn-mark.done { border-color: var(--border2); color: var(--text3); background: transparent; }
+
+/* Progress path visualization */
+.path-wrap { margin-bottom: 3rem; }
+.path-title { font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
+.path-nodes { display: flex; align-items: center; flex-wrap: wrap; gap: 0; }
+.path-node { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.path-circle { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border2); background: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 10px; font-family: var(--mono); color: var(--text3); transition: all 0.3s; font-weight: 500; }
+.path-circle.done { background: var(--teal); border-color: var(--teal); color: #05080f; font-size: 14px; }
+.path-circle.current { border-color: var(--blue); color: var(--blue); box-shadow: 0 0 16px rgba(74,158,255,0.3); }
+.path-node-label { font-size: 9px; font-family: var(--mono); color: var(--text3); text-align: center; max-width: 60px; line-height: 1.3; }
+.path-connector { flex: 1; height: 2px; background: var(--border); min-width: 20px; max-width: 60px; position: relative; top: -12px; }
+.path-connector.done { background: var(--teal); }
+
+/* Toast */
+.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--teal); color: #05080f; font-size: 13px; font-weight: 700; padding: 10px 22px; border-radius: 99px; opacity: 0; transition: all 0.3s; z-index: 999; font-family: var(--font); white-space: nowrap; }
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* Responsive */
+@media(max-width:600px) {
+  .detail-grid { grid-template-columns: 1fr; }
+  .stats-bar { gap: 8px; }
+  .stat-block { border-radius: 10px !important; flex: 1 1 45%; }
+  .path-nodes { gap: 4px; }
+}
+
+/* Stagger animation */
+.cert-card { animation: fadeUp 0.4s ease both; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px);} to{opacity:1;transform:translateY(0);} }
+.cert-card:nth-child(2){animation-delay:0.05s;}
+.cert-card:nth-child(3){animation-delay:0.1s;}
+.cert-card:nth-child(4){animation-delay:0.15s;}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <div class="header-eyebrow">your sme blueprint</div>
+    <h1 class="header-title">
+      Cloud Certification<br>
+      <span class="line2">Roadmap</span>
+    </h1>
+    <p class="header-desc">A structured path from AWS associate to cloud security SME. Click any certification to expand details, study tips, and mark your progress.</p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-block">
+      <div class="stat-num blue" id="s-earned">0</div>
+      <div class="stat-lbl">certs earned</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num" id="s-total">12</div>
+      <div class="stat-lbl">total certs</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num teal" id="s-pct">0%</div>
+      <div class="stat-lbl">complete</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num" id="s-months">~36</div>
+      <div class="stat-lbl">months est.</div>
+    </div>
+  </div>
+
+  <div class="path-wrap">
+    <div class="path-title">your journey at a glance</div>
+    <div class="path-nodes" id="pathNodes"></div>
+  </div>
+
+  <div id="roadmapContent"></div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORE = 'certmap_v1';
+let completed = JSON.parse(localStorage.getItem(STORE) || '[]');
+
+const phases = [
+  {
+    id: 'p1', label: 'Phase 1 — Foundation', time: 'Months 1–4', cls: 'p1',
+    certs: [
+      {
+        id: 'saa', code: 'SAA-C03', name: 'AWS Solutions Architect Associate', color: 'blue',
+        level: 'Associate', time: '~3 months', cost: '$300', validity: '3 years',
+        salary: '$90K–$130K',
+        desc: 'The most popular AWS cert in the world. Validates your ability to design resilient, cost-optimized architectures. The foundation for everything else.',
+        skills: ['VPC & Networking','EC2 & Auto Scaling','S3 & Storage','IAM & Security','RDS & Databases','CloudFormation','High Availability'],
+        topics: ['Design Resilient Architectures (30%)','Design High-Performing Architectures (28%)','Design Secure Applications (24%)','Design Cost-Optimized Architectures (18%)'],
+        tips: 'Start here. You\'re already studying for this. Focus on scenario-based questions — the exam tests judgment, not just memory. Use Adrian Cantrill\'s course and do Tutorials Dojo practice exams.',
+        priority: 'Start now'
+      }
+    ]
+  },
+  {
+    id: 'p2', label: 'Phase 2 — Security Specialist', time: 'Months 5–10', cls: 'p2',
+    certs: [
+      {
+        id: 'sec+', code: 'SY0-701', name: 'CompTIA Security+', color: 'teal',
+        level: 'Foundation', time: '~2 months', cost: '$370', validity: '3 years',
+        salary: '+$10K–$20K',
+        desc: 'Vendor-neutral security baseline. Covers threats, cryptography, identity, PKI, and incident response. Often required by government and enterprise employers.',
+        skills: ['Threat Intelligence','Cryptography','Identity & Access','Network Security','Incident Response','Risk Management'],
+        topics: ['Threats, Attacks & Vulnerabilities (24%)','Technologies & Tools (22%)','Architecture & Design (18%)','Identity & Access Mgmt (16%)','Risk Management (14%)','Cryptography & PKI (12%)'],
+        tips: 'Don\'t skip this even though it\'s not AWS-specific. Security+ is a door-opener for federal, defense, and large enterprise roles. It also solidifies your security vocabulary for all future certs.',
+        priority: 'High value'
+      },
+      {
+        id: 'scs', code: 'SCS-C02', name: 'AWS Security Specialty', color: 'teal',
+        level: 'Specialty', time: '~3 months', cost: '$300', validity: '3 years',
+        salary: '$120K–$160K',
+        desc: 'The deepest AWS security cert. Covers IAM advanced patterns, KMS, GuardDuty, Security Hub, WAF, Shield, CloudTrail, detective controls, and incident response.',
+        skills: ['IAM Advanced','KMS & Encryption','GuardDuty & Macie','Security Hub','WAF & Shield','CloudTrail & Config','Incident Response'],
+        topics: ['Threat Detection & Response (14%)','Security Logging & Monitoring (18%)','Infrastructure Security (20%)','Identity & Access Mgmt (16%)','Data Protection (18%)','Management & Security Governance (14%)'],
+        tips: 'This cert is a major SME differentiator. AWS security architects with SCS-C02 are in very high demand. Take it while your SAA knowledge is fresh — there\'s heavy overlap.',
+        priority: 'SME core'
+      }
+    ]
+  },
+  {
+    id: 'p3', label: 'Phase 3 — Cloud Professional', time: 'Months 11–18', cls: 'p3',
+    certs: [
+      {
+        id: 'sysops', code: 'SOA-C02', name: 'AWS SysOps Administrator Associate', color: 'amber',
+        level: 'Associate', time: '~2 months', cost: '$300', validity: '3 years',
+        salary: '$100K–$140K',
+        desc: 'Operational depth on AWS. Covers monitoring, deployment, automation, and troubleshooting. Pairs perfectly with SAA to round out your associate-level knowledge.',
+        skills: ['CloudWatch & Monitoring','Systems Manager','Auto Scaling','Cost Optimization','Deployment Automation','Incident & Event Mgmt'],
+        topics: ['Monitoring & Reporting (22%)','High Availability (8%)','Deployment & Provisioning (14%)','Storage & Data Mgmt (12%)','Security & Compliance (18%)','Networking (14%)','Automation & Optimization (12%)'],
+        tips: 'Often overlooked but very valuable. Hands-on labs with CloudFormation and SSM are essential. This is also the only AWS exam with a practical lab component (CloudFormation).',
+        priority: 'Recommended'
+      },
+      {
+        id: 'sap', code: 'SAP-C02', name: 'AWS Solutions Architect Professional', color: 'amber',
+        level: 'Professional', time: '~4 months', cost: '$300', validity: '3 years',
+        salary: '$140K–$200K+',
+        desc: 'The hardest and most respected AWS cert. Requires real-world experience. Tests complex multi-account enterprise architecture, migration strategy, and cost optimization at scale.',
+        skills: ['Multi-Account Architecture','AWS Organizations','Migration Strategy','Complex Networking','Enterprise HA/DR','Cost at Scale','Service Integration'],
+        topics: ['Design for Organizational Complexity (26%)','Design for New Solutions (29%)','Migration Planning (15%)','Cost Control (13%)','Continuous Improvement (17%)'],
+        tips: 'Do NOT attempt this without 12–18 months of hands-on AWS experience. The exam gives you long, complex scenario questions with plausible-sounding wrong answers. Read all of the AWS whitepapers.',
+        priority: 'Senior level'
+      }
+    ]
+  },
+  {
+    id: 'p4', label: 'Phase 4 — Broaden & Deepen', time: 'Months 19–28', cls: 'p4',
+    certs: [
+      {
+        id: 'cisa', code: 'CISA', name: 'Certified Information Systems Auditor', color: 'purple',
+        level: 'Professional', time: '~4 months', cost: '$575', validity: '3 years',
+        salary: '+$15K–$30K',
+        desc: 'ISACA\'s flagship audit and governance cert. Essential for cloud security roles that touch compliance, risk, and governance frameworks like ISO 27001, SOC 2, and FedRAMP.',
+        skills: ['IS Audit Process','IT Governance','Systems Acquisition','Operations Mgmt','Info Asset Protection'],
+        topics: ['Information Systems Auditing Process (21%)','Governance & Management of IT (17%)','IS Acquisition & Development (12%)','IS Operations (23%)','Protection of Info Assets (27%)'],
+        tips: 'If your goal is cloud security SME, CISA signals serious credibility in compliance-heavy environments. Required or preferred for GRC, audit, and senior security roles.',
+        priority: 'Governance track'
+      },
+      {
+        id: 'ccsp', code: 'CCSP', name: 'Certified Cloud Security Professional', color: 'purple',
+        level: 'Professional', time: '~4 months', cost: '$599', validity: '3 years',
+        salary: '$140K–$180K',
+        desc: '(ISC)² cloud security cert that covers multi-cloud security architecture, data security, legal compliance, and cloud-specific threats. Vendor-neutral and globally recognized.',
+        skills: ['Cloud Architecture','Data Security','Legal & Compliance','Cloud App Security','Operations Security','Cloud Platform Security'],
+        topics: ['Cloud Concepts & Architecture (17%)','Cloud Data Security (20%)','Cloud Platform & Infrastructure (17%)','Cloud Application Security (17%)','Cloud Security Operations (16%)','Legal, Risk & Compliance (13%)'],
+        tips: 'The cloud security equivalent of CISSP. Pairs perfectly with AWS Security Specialty — one is vendor-specific, CCSP is vendor-neutral. Together they make you extremely hireable.',
+        priority: 'Cloud security SME'
+      },
+      {
+        id: 'az900', code: 'AZ-104', name: 'Microsoft Azure Administrator', color: 'purple',
+        level: 'Associate', time: '~2 months', cost: '$165', validity: '2 years',
+        salary: '+$10K–$25K',
+        desc: 'Multi-cloud credibility. Azure is the #2 cloud provider — knowing both AWS and Azure makes you significantly more hireable and valuable as an architect.',
+        skills: ['Azure Identity & Security','Virtual Networking','Storage Solutions','Compute Resources','Monitoring & Backup'],
+        topics: ['Manage Azure Identities (20%)','Implement & Manage Storage (15%)','Deploy & Manage Compute (20%)','Configure & Manage Virtual Networking (25%)','Monitor & Back Up Resources (10%)'],
+        tips: 'AWS-to-Azure knowledge transfer is fast — most concepts map directly. Azure AD (now Entra ID) knowledge is especially valuable for hybrid enterprise environments.',
+        priority: 'Multi-cloud'
+      }
+    ]
+  },
+  {
+    id: 'p5', label: 'Phase 5 — Elite SME', time: 'Months 29–36+', cls: 'p5',
+    certs: [
+      {
+        id: 'cissp', code: 'CISSP', name: 'Certified Information Systems Security Professional', color: 'red',
+        level: 'Expert', time: '~6 months', cost: '$699', validity: '3 years',
+        salary: '$150K–$220K+',
+        desc: 'The gold standard of security certifications. Covers 8 domains of information security management. Requires 5 years of paid security experience. A career-defining credential.',
+        skills: ['Security & Risk Mgmt','Asset Security','Security Architecture','Network Security','Identity & Access','Security Assessment','Security Operations','Software Security'],
+        topics: ['Security & Risk Management (15%)','Asset Security (10%)','Security Architecture (13%)','Communication & Network Security (13%)','Identity & Access Management (13%)','Security Assessment & Testing (12%)','Security Operations (13%)','Software Development Security (11%)'],
+        tips: 'This is the endpoint of your SME journey. With CISSP + AWS Security Specialty + CCSP, you are top 1% of cloud security professionals globally. Requires 5 years of experience — plan for this.',
+        priority: 'Elite tier'
+      },
+      {
+        id: 'devops', code: 'DOP-C02', name: 'AWS DevOps Engineer Professional', color: 'red',
+        level: 'Professional', time: '~3 months', cost: '$300', validity: '3 years',
+        salary: '$150K–$200K',
+        desc: 'Combines cloud architecture and software delivery. Covers CI/CD pipelines, infrastructure as code, monitoring, and incident response automation at scale.',
+        skills: ['CI/CD Pipelines','CodePipeline & CodeBuild','Infrastructure as Code','Event-Driven Automation','Logging & Monitoring','High Availability at Scale'],
+        topics: ['SDLC Automation (22%)','Config Management & IaC (17%)','Resilient Cloud Solutions (15%)','Monitoring & Logging (15%)','Incident & Event Response (14%)','High Availability (17%)'],
+        tips: 'If you lean toward platform engineering or DevSecOps, this pairs with SAP to make you a complete cloud professional. Very in-demand for senior cloud architect and cloud platform engineer roles.',
+        priority: 'Optional track'
+      }
+    ]
+  }
+];
+
+// Flat list of all certs for path viz
+const allCerts = phases.flatMap(p => p.certs);
+const pathLabels = ['SAA','Sec+','SCS','SysOps','SAP','CISA','CCSP','AZ-104','CISSP','DevOps'];
+
+function isCompleted(id) { return completed.includes(id); }
+
+function toggleComplete(id) {
+  if (isCompleted(id)) {
+    completed = completed.filter(c => c !== id);
+  } else {
+    completed.push(id);
+  }
+  localStorage.setItem(STORE, JSON.stringify(completed));
+  renderStats();
+  renderPath();
+  // Update the card
+  document.querySelectorAll('.cert-card').forEach(card => {
+    if (card.dataset.id === id) {
+      card.classList.toggle('completed', isCompleted(id));
+      const check = card.querySelector('.cert-check');
+      if (check) check.innerHTML = isCompleted(id) ? '✓' : '';
+      const btn = card.querySelector('.btn-mark');
+      if (btn) {
+        btn.textContent = isCompleted(id) ? 'Mark as not done' : 'Mark as earned';
+        btn.classList.toggle('done', isCompleted(id));
+      }
+    }
+  });
+  showToast(isCompleted(id) ? 'Cert marked as earned!' : 'Cert unmarked.');
+}
+
+function renderStats() {
+  const earned = completed.length;
+  const total = allCerts.length;
+  const pct = Math.round(earned / total * 100);
+  const monthsLeft = Math.max(0, 36 - Math.round(earned / total * 36));
+  document.getElementById('s-earned').textContent = earned;
+  document.getElementById('s-pct').textContent = pct + '%';
+  document.getElementById('s-months').textContent = earned === total ? 'Done!' : '~' + (36 - Math.round(earned/total*36));
+}
+
+function renderPath() {
+  const container = document.getElementById('pathNodes');
+  container.innerHTML = '';
+  const shortMap = {saa:'SAA',sec_:'Sec+',scs:'SCS',sysops:'SysOps',sap:'SAP',cisa:'CISA',ccsp:'CCSP',az900:'AZ-104',cissp:'CISSP',devops:'DevOps'};
+  allCerts.forEach((c, i) => {
+    const node = document.createElement('div');
+    node.className = 'path-node';
+    const done = isCompleted(c.id);
+    const label = (shortMap[c.id] || c.code.split('-')[0]).substring(0,6);
+    node.innerHTML = `<div class="path-circle ${done ? 'done' : (i === completed.length ? 'current' : '')}">${done ? '✓' : (i+1)}</div><div class="path-node-label">${label}</div>`;
+    container.appendChild(node);
+    if (i < allCerts.length - 1) {
+      const conn = document.createElement('div');
+      conn.className = 'path-connector' + (done ? ' done' : '');
+      container.appendChild(conn);
+    }
+  });
+}
+
+function buildRoadmap() {
+  const container = document.getElementById('roadmapContent');
+  container.innerHTML = '';
+
+  phases.forEach(phase => {
+    const phaseEl = document.createElement('div');
+    phaseEl.className = 'phase';
+    phaseEl.innerHTML = `
+      <div class="phase-header">
+        <div class="phase-line"></div>
+        <div class="phase-badge ${phase.cls}">${phase.label}</div>
+        <div class="phase-time">${phase.time}</div>
+        <div class="phase-line"></div>
+      </div>
+      <div class="certs-grid" id="grid-${phase.id}"></div>
+    `;
+    container.appendChild(phaseEl);
+
+    const grid = phaseEl.querySelector(`#grid-${phase.id}`);
+
+    phase.certs.forEach(cert => {
+      const wrapper = document.createElement('div');
+
+      const card = document.createElement('div');
+      card.className = `cert-card ${cert.color}${isCompleted(cert.id) ? ' completed' : ''}`;
+      card.dataset.id = cert.id;
+      card.innerHTML = `
+        <div class="cert-top">
+          <div>
+            <span class="cert-badge ${cert.color}">${cert.level}</span>
+          </div>
+          <div class="cert-check">${isCompleted(cert.id) ? '✓' : ''}</div>
+        </div>
+        <div class="cert-name">${cert.name}</div>
+        <div class="cert-code">${cert.code}</div>
+        <div class="cert-meta">
+          <span class="meta-pill">${cert.time}</span>
+          <span class="meta-pill">${cert.cost}</span>
+          <span class="meta-pill">${cert.validity}</span>
+        </div>
+        <div class="cert-desc">${cert.desc}</div>
+        <div class="cert-skills">${cert.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}</div>
+        <div class="cert-footer">
+          <span class="cert-salary">${cert.salary}</span>
+          <span class="cert-priority">${cert.priority}</span>
+        </div>
+      `;
+
+      const panel = document.createElement('div');
+      panel.className = 'detail-panel';
+      panel.id = `panel-${cert.id}`;
+      panel.innerHTML = `
+        <div class="detail-grid">
+          <div class="detail-section">
+            <h4>Exam domains</h4>
+            <ul class="detail-list">${cert.topics.map(t => `<li>${t}</li>`).join('')}</ul>
+          </div>
+          <div class="detail-section">
+            <h4>Key skills to build</h4>
+            <ul class="detail-list">${cert.skills.map(s => `<li>${s}</li>`).join('')}</ul>
+          </div>
+        </div>
+        <div class="detail-tip"><strong>Study tip:</strong> ${cert.tips}</div>
+        <button class="btn-mark ${isCompleted(cert.id) ? 'done' : ''}" onclick="toggleComplete('${cert.id}')">${isCompleted(cert.id) ? 'Mark as not done' : 'Mark as earned'}</button>
+      `;
+
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.btn-mark')) return;
+        const isOpen = panel.classList.contains('open');
+        // Close all
+        document.querySelectorAll('.detail-panel.open').forEach(p => p.classList.remove('open'));
+        document.querySelectorAll('.cert-card.active-card').forEach(c => c.classList.remove('active-card'));
+        if (!isOpen) {
+          panel.classList.add('open');
+          card.classList.add('active-card');
+        }
+      });
+
+      wrapper.appendChild(card);
+      wrapper.appendChild(panel);
+      grid.appendChild(wrapper);
+    });
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+buildRoadmap();
+renderStats();
+renderPath();
+</script>
+</body>
+</html>
